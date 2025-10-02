@@ -6,29 +6,35 @@ It provides an expressive API similar to Laravel’s query builder but simplifie
 ---
 
 ## 🚀 Features
-- Fluent, chainable API
-- Secure queries using prepared statements
-- Supports:
-  - `select`, `insert`, `update`, `delete`
-  - `where`, `andWhere`, `orWhere`
-  - `orderBy`, `limit`, `offset`
-  - Raw queries
-- Automatic parameter binding (protection against SQL injection)
-- Auto-reset after each query (no query leakage)
+- Fluent, chainable API  
+- Secure queries using prepared statements  
+- Supports:  
+  - `select`, `insert`, `update`, `delete`  
+  - `where`, `andWhere`, `orWhere`  
+  - `orderBy`, `limit`, `offset`  
+  - Raw queries  
+- Automatic parameter binding (protection against SQL injection)  
+- Auto-reset after each query (no query leakage)  
 
 ---
 
 ## 📦 Installation
-Clone this repository or copy the `QueryBuilder.php` file into your project.
+Clone this repository or copy the `QueryBuilder.php` file into your project.  
 
-Make sure you have a config.php file that defines your database constants:
+Make sure you have a `config.php` file that defines your database constants:
+
+```php
 define("DBHOST", "localhost");
 define("DBNAME", "your_db");
 define("DBUSER", "root");
 define("DBPASS", "");
+```
 
+⚡ Usage
 Select Data
+
 $QB = new QueryBuilder();
+
 $users = $QB->table('user')
             ->select('id', 'email')
             ->where('id', '=', 1)
@@ -38,6 +44,7 @@ $users = $QB->table('user')
 print_r($users);
 
 Insert Data
+
 $id = $QB->table('user')->insert([
     "username" => "fade",
     "email"    => "fade@gmail.com",
@@ -49,6 +56,7 @@ $id = $QB->table('user')->insert([
 echo "Inserted with ID: " . $id;
 
 Update Data
+
 $rows = $QB->table('user')
            ->where("id", "=", 2)
            ->update([
@@ -65,23 +73,23 @@ $rows = $QB->table('user')
 
 echo "$rows row(s) deleted.";
 
-Raw Data
+Raw Query
 
 $result = $QB->raw("SELECT * FROM user WHERE gender = 'male'");
 print_r($result);
 
-
 📌 Notes
-get() returns the first row, while getAll() returns all rows.
-All queries are parameterized to prevent SQL injection.
-Default fetch mode is PDO::FETCH_OBJ.
+
+    get() returns the first row, while getAll() returns all rows.
+
+    All queries are parameterized to prevent SQL injection.
+
+    Default fetch mode is PDO::FETCH_OBJ.
 
 🤝 Contributing
+
 Pull requests are welcome!
 If you find bugs or have suggestions, feel free to open an issue.
-
 📄 License
+
 MIT License – feel free to use this in your projects.
-
-
-
